@@ -1,0 +1,32 @@
+.catalogo_card{
+    background-color: rgb(38, 38, 38);
+    backdrop-filter: blur(10px);
+    display: flex;
+    margin: .1em auto;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border: 2px solid rgb(116, 116, 116);
+    border-radius: 15px;
+    width: 45%;
+}
+.catalogo_card img{
+    margin-right: 2em;    
+    width: 6em;
+    border-radius: 10px;
+}
+.catalogo_card h3 {
+    padding-bottom: 1em;
+    color: aliceblue;
+}
+.catalogo_card h4{
+    color: aquamarine;
+}
+.catalogo_card p{    
+    color: rgb(160, 160, 160);
+    margin-bottom: 1em;
+}
+.catalogo_card span{
+    color: azure;
+    font-weight: bold;
+}
