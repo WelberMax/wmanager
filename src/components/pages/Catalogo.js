@@ -6,12 +6,14 @@ import styles from './Catalogo.module.css';
 
 import CatalogoCard from '../catalogoForm/catalogoCard'
 
+const apiURL = process.env.REACT_APP_API_URL;
+
 const Catalogo = () => {
   const [catalogos, setCatalogos] = useState([])
   const [removeLoading, setRemoveLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3015/api/catalogo')
+    fetch(`${apiURL}api/catalogo`)
     .then(response => response.json())
     .then(data => {
        setCatalogos(data)

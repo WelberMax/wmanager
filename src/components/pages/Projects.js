@@ -9,6 +9,7 @@ import Loading from "../layout/Loading";
 import styles from "./Projects.module.css";
 import ProjectCard from "../project/ProjectCard";
 
+const apiURL = process.env.REACT_APP_API_URL;
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [removeLoading, setRemoveLoading] = useState(false);
@@ -16,7 +17,7 @@ function Projects() {
   
   
   useEffect(() => {
-    fetch("http://localhost:3015/api/projects", {
+    fetch(`${apiURL}api/projects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
