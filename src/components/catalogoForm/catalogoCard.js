@@ -8,14 +8,12 @@ const CatalogoCard = ({title, genres, plot, year, poster, fullplot}) => {
       <img src={poster} alt={title}/>
 
       </div>
-      <div>
-        <h3>{title}</h3>
-        <p><span>Descrição :</span> {plot}</p>
-        <h4><span>Genero: </span> {genres}</h4>
-        <h4><span>Ano: </span> {year}</h4>
-      </div>        
-       
-
+        <div>
+          <h3>{title}</h3>
+          <p><span>Descrição :</span> {plot}</p>
+          <h4><span>Genero: </span> {genres}</h4>
+          <h4><span>Ano: </span> {year}</h4>
+        </div>
     </div>
   )
 }

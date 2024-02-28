@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 import Message from "./Message";
 import LinkButton from "../layout/LinkButton";
 import Container from "../layout/Container";
@@ -9,7 +10,10 @@ import Loading from "../layout/Loading";
 import styles from "./Projects.module.css";
 import ProjectCard from "../project/ProjectCard";
 
+
+
 const apiURL = process.env.REACT_APP_API_URL;
+
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [removeLoading, setRemoveLoading] = useState(false);
