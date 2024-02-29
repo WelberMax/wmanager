@@ -4,6 +4,19 @@
     background-color: #222;
     padding: 1em;
 }
+@media screen and (max-width: 992px) {
+    .navbar{
+        flex-direction: column;
+
+    }
+    .navbar img{
+        display: none;        
+    }
+    .list{
+        flex-direction: column;
+    }
+    
+}
 .list{
     display: flex;
     list-style: none;

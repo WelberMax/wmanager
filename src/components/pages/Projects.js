@@ -35,6 +35,7 @@ function Projects() {
       .catch((err) => console.log(err));
       
   }, []);
+  
 
   const location = useLocation();
   let message = "";
@@ -51,7 +52,6 @@ function Projects() {
         {message && <Message type="sucess" text={message} />}
       <Container customClass='start'>
 
-    
         {projects.length > 0 &&
           projects.map((project) => (
             <ProjectCard
@@ -63,10 +63,10 @@ function Projects() {
             />
             ))}
             {!removeLoading && <Loading />}
-      
-
-      </Container>      
+            
+      </Container>
     </div>
+    
   );
 }
 export default Projects;
