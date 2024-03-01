@@ -11,3 +11,9 @@
     margin-bottom: .5em;
     color: #7b7b7b;
 }
+@media screen and (max-width: 900px) {
+    .project_container{
+        padding: 1em;
+    }
+    
+}
