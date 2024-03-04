@@ -9,6 +9,7 @@ import CatalogoCard from '../catalogoForm/catalogoCard'
 const apiURL = process.env.REACT_APP_API_URL;
 
 const Catalogo = () => {
+  
   const [catalogos, setCatalogos] = useState([])
   const [removeLoading, setRemoveLoading] = useState(false);
 
@@ -23,15 +24,16 @@ const Catalogo = () => {
   }, []);
 
   return (
-    <div className={styles.catalogo_container}>
-      
+    <div className={styles.catalogo_container}>      
       <div>
       <h1>Catálogo de filmes</h1>
-        <Container customClass='start'>
+        <Container customClass='catalogo'>
           {catalogos.length > 0 &&
             catalogos.map((catalogo) => (
-              <CatalogoCard
-                key={catalogo.id}
+              
+              <CatalogoCard                
+                key={Math.random()}
+                id={catalogo.id}
                 title={catalogo.title}
                 plot={catalogo.plot}
                 year={catalogo.year}

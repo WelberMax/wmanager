@@ -1,32 +1,106 @@
-.catalogo_card{
-    background-color: rgb(38, 38, 38);
-    backdrop-filter: blur(10px);
-    display: flex;
-    margin: .1em auto;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    border: 2px solid rgb(116, 116, 116);
-    border-radius: 15px;
-    width: 45%;
+.catalogo_card {
+  display: flex;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+  height: 500px;
+  transition: 0.8s;
 }
-.catalogo_card img{
-    margin-right: 2em;    
-    width: 6em;
-    border-radius: 10px;
+/*Smartphones*/
+@media screen and (max-width: 916px) {
+  .catalogo_card {
+    width: 180px;
+    height: 300px;
+    text-align: center;
+    margin: 0.3em;
+  }
+  .textoCentro {
+    display: none;
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    transition: 0.8s;
+    
+  }
+  .catalogo_card img {
+    position: absolute;
+    top: 0px;
+    border-radius: 8px;
+    width: 100%;
+    transition: 0.8s;
+    
+  }
+  .catalogo_info {
+    text-align: center;
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    background-color: rgb(197, 197, 197);
+    bottom: 0px;
+    
+  }
 }
+.catalogo_card img {
+  position: absolute;
+  top: 0px;
+  border-radius: 8px;
+  width: 100%;
+  transition: 0.8s;
+}
+.catalogo_card:hover .textoCentro {  
+    display: block;
+    top: 45%;
+}
+.catalogo_card:hover img {
+  opacity: 0.2;
+}
+
+.textoCentro {
+  display: none;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  height: 50px;
+}
+
+
+.textoCentro h1 {
+  font-size: 18px;
+  font-weight: 900;
+  color: rgb(0, 0, 0);
+  transform: translateY(-10px);
+  transition: 0.8s;
+  
+}
+
 .catalogo_card h3 {
-    padding-bottom: 1em;
-    color: aliceblue;
+  padding-bottom: 1em;
+  color: aliceblue;
 }
-.catalogo_card h4{
-    color: aquamarine;
+.catalogo_card h4 {
+  color: rgb(169, 169, 169);
 }
-.catalogo_card p{    
-    color: rgb(160, 160, 160);
-    margin-bottom: 1em;
+.catalogo_card p {
+  color: rgb(160, 160, 160);
+  margin-bottom: 1em;
 }
-.catalogo_card span{
-    color: azure;
-    font-weight: bold;
+.catalogo_card span {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
+.genero {
+  font-size: 10px;
+}
+.catalogo_info {
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  background-color: rgb(197, 197, 197);
+  bottom: 0px;
 }
