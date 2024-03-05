@@ -41,6 +41,9 @@
     bottom: 0px;
     
   }
+  .textoCentro:hover{
+    transform: translateY(-100px);
+  } 
 }
 .catalogo_card img {
   position: absolute;
@@ -53,9 +56,17 @@
     display: block;
     top: 45%;
 }
-.catalogo_card:hover img {
+.catalogo_card:hover img {  
   opacity: 0.2;
 }
+
+.textoCentro:hover{
+    transform: translateY(-120px) scaleX(0.9) scaleY(0.9);
+    
+  }   
+  
+
+
 
 .textoCentro {
   display: none;
@@ -63,9 +74,11 @@
   top: 10%;
   left: 0;
   text-align: center;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
-  height: 50px;
+  height: 100%;
+  transition: transform 0.5s;
+  
 }
 
 
@@ -73,8 +86,8 @@
   font-size: 18px;
   font-weight: 900;
   color: rgb(0, 0, 0);
-  transform: translateY(-10px);
-  transition: 0.8s;
+  
+  
   
 }
 
@@ -83,6 +96,7 @@
   color: aliceblue;
 }
 .catalogo_card h4 {
+  font-size: 14px;
   color: rgb(169, 169, 169);
 }
 .catalogo_card p {
@@ -93,14 +107,12 @@
   color: rgb(0, 0, 0);
   font-weight: bold;
 }
-.genero {
-  font-size: 10px;
-}
+
 .catalogo_info {
   text-align: center;
   height: 50px;
   width: 100%;
   position: absolute;
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(255, 255, 255);
   bottom: 0px;
 }
