@@ -19,7 +19,7 @@ function Navbar(){
                         <Link to="/contato">Contato</Link>
                     </li>
                     <li className={styles.item}>
-                        <Link to="/testepage">Zona Teste</Link>
+                        <Link to="/updates">Updates</Link>
                     </li>
                     <li className={styles.item}>
                         <Link to="/login">Login</Link>

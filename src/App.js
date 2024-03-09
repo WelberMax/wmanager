@@ -4,7 +4,7 @@ import Home from './components/pages/Home';
 import Contato from './components/pages/Contato';
 import Projects from './components/pages/Projects';
 import Newproject from './components/pages/Newproject';
-import Testepage from './components/pages/Testepage'
+import Updates from './components/pages/Updates';
 import Catalogo from './components/pages/Catalogo';
 
 import Container from './components/layout/Container';
@@ -13,7 +13,7 @@ import Footer from './components/layout/Foooter';
 import TelaLogin from './components/pages/LoginPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+import { AuthProvider } from "react-auth-kit";
 
 
 
@@ -25,22 +25,24 @@ font-size: 4rem;` */
 function App() {
   
   return (
-    <Router>
-        <Navbar />
-        
-        <Container customClass='min-height'>
-          <Routes>
-            <Route path='/'element={<Home />}/>
-            <Route path='/contato' element={<Contato />}/>        
-            <Route path='/projects' element={<Projects />}/>
-            <Route path='/newproject' element={<Newproject />}/>
-            <Route path='/testepage' element={<Testepage />}/>
-            <Route path='/login' element={<TelaLogin />}/>
-            <Route path='/catalogo' element={<Catalogo />}/>
-          </Routes>
-        </Container>      
-        <Footer />
-    </Router>
+    
+      <Router>
+          <Navbar />
+          
+          <Container customClass='min-height'>
+            <Routes>
+              <Route path='/'element={<Home />}/>
+              <Route path='/contato' element={<Contato />}/>        
+              <Route path='/projects' element={<Projects />}/>
+              <Route path='/newproject' element={<Newproject />}/>
+              <Route path='/updates' element={<Updates />}/>
+              <Route path='/login' element={<TelaLogin />}/>
+              <Route path='/catalogo' element={<Catalogo />}/>
+            </Routes>
+          </Container>      
+          <Footer />
+      </Router>
+    
     
   );
 }

@@ -21,20 +21,37 @@ function Projects() {
   
   
   useEffect(() => {
-    fetch(`${apiURL}api/projects`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data)
-        setRemoveLoading(true)
-      })
-      .catch((err) => console.log(err));
+    setTimeout(() => {
       
-  }, []);
+    
+      fetch(`${apiURL}api/projects`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setProjects(data)
+          setRemoveLoading(true)
+        })
+        .catch((err) => console.log(err));
+      
+    },300)
+  },[]);
+  function removeProject(id){
+    fetch(`${apiURL}api/projects/${id}`,{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((res) => res.json())
+      .then(() => {
+      setProjects(projects.filter((project) => project._id !== id))
+      //history('/projects', {state:{message: 'Projeto removido com sucesso!'}})
+    })
+    .catch((err) => console.log(err))
+  }
   
 
   const location = useLocation();
@@ -56,10 +73,11 @@ function Projects() {
           projects.map((project) => (
             <ProjectCard
               key={project.name}
-              id={project.id}
+              id={project._id}
               name={project.name}
               budget={project.budget}
               category={project.category[0].name}
+              handleRemove={removeProject}
             />
             ))}
             {!removeLoading && <Loading />}

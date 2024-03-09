@@ -3,9 +3,11 @@ import Input from "../form/Input";
 import SubmitButton from "../form/SubmitButton";
 import styles from "./Login.module.css";
 
+import { useSignIn} from 'react-auth-kit'
 import { useState } from "react";
 import { useNavigate } from'react-router-dom'
 const apiURL = process.env.REACT_APP_API_URL;
+
 
 const Login = ({btntext}) => {
   const [email, setEmail] = useState("");
@@ -13,6 +15,7 @@ const Login = ({btntext}) => {
   const [error, setError] = useState("");
 
   const history = useNavigate()
+  const signIn = useSignIn()
 
   const handleSubmit = async (e) => {
     try {
@@ -24,15 +27,18 @@ const Login = ({btntext}) => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const data = response.json();
+      signIn({
+        token: data.token,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: {email: data.email}
+      })
 
       if (response.ok) {
         // Login bem-sucedido
         // Redirecionar o usuário, armazenar token, etc.
         history('/', {state:{message: 'Login bem-sucedido!'}})
-      } else {
-        // Login falhou
-        setError(data.message);
       }
     } catch (error) {
       // Erro de rede ou outro erro

@@ -5,7 +5,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 
 import styles from "./ProjectCard.module.css";
 
-function ProjectCard({ id, name, budget, category }) {
+function ProjectCard({ id, name, budget, category, handleRemove }) {
+  const remove = (e) => {
+    e.preventDefault();
+    handleRemove(id);
+  }
   return (
     <div className={styles.project_card}>
       <div>
@@ -20,7 +24,7 @@ function ProjectCard({ id, name, budget, category }) {
       </div>
       <div className={styles.project_card_actions}>
         <Link to="/"> <MdModeEdit /> Editar   </Link>
-        <button>
+        <button onClick={remove}>
           <RiDeleteBinLine /> Remover
         </button>
       </div>

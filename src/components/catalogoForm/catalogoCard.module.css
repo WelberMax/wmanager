@@ -50,6 +50,7 @@
   top: 0px;
   border-radius: 8px;
   width: 100%;
+  max-height: 470px;
   transition: 0.8s;
 }
 .catalogo_card:hover .textoCentro {  
