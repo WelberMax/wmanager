@@ -24,6 +24,12 @@ function Updates() {
       description: "Updated project card with delete function",
       year: "2024-03-06",
     },
+    {
+      id: 4,
+      title: "login page update",
+      description: "Login page work correctly [email: welbermax@gmail.com, password: teste2",
+      year: "2024-03-13",
+    }
   ];
 
   const toggleDetails = (id) => {
