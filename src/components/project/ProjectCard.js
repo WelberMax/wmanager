@@ -23,7 +23,7 @@ function ProjectCard({ id, name, budget, category, handleRemove }) {
         </p>
       </div>
       <div className={styles.project_card_actions}>
-        <Link to="/"> <MdModeEdit /> Editar   </Link>
+        <Link to={`/project/${id}`}> <MdModeEdit /> Editar   </Link>
         <button onClick={remove}>
           <RiDeleteBinLine /> Remover
         </button>

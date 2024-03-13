@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from'react-router-dom'
 
 
 import Message from "./Message";
@@ -17,6 +18,7 @@ const apiURL = process.env.REACT_APP_API_URL;
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [removeLoading, setRemoveLoading] = useState(false);
+  const history = useNavigate()
   
   
   
@@ -48,7 +50,7 @@ function Projects() {
     }).then((res) => res.json())
       .then(() => {
       setProjects(projects.filter((project) => project._id !== id))
-      //history('/projects', {state:{message: 'Projeto removido com sucesso!'}})
+      history('/projects', {state:{message: 'Projeto removido com sucesso!'}})
     })
     .catch((err) => console.log(err))
   }

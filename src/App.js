@@ -6,6 +6,7 @@ import Projects from './components/pages/Projects';
 import Newproject from './components/pages/Newproject';
 import Updates from './components/pages/Updates';
 import Catalogo from './components/pages/Catalogo';
+import Project from './components/pages/Project';
 
 import Container from './components/layout/Container';
 import Navbar from './components/layout/Navbar';
@@ -13,7 +14,8 @@ import Footer from './components/layout/Foooter';
 import TelaLogin from './components/pages/LoginPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { AuthProvider } from "react-auth-kit";
+
+
 
 
 
@@ -38,6 +40,7 @@ function App() {
               <Route path='/updates' element={<Updates />}/>
               <Route path='/login' element={<TelaLogin />}/>
               <Route path='/catalogo' element={<Catalogo />}/>
+              <Route path='/project/:id' element={<Project />}/>
             </Routes>
           </Container>      
           <Footer />
