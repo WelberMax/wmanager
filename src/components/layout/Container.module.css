@@ -1,7 +1,7 @@
-.container{    
+.container{
+    
     width: 100%;
-    max-width: 1250px;
-    display: flex;
+    max-width: 1250px;    
     justify-content: space-between;
     margin: 0 auto;
     flex-wrap: wrap;
@@ -11,6 +11,17 @@
 .min-height{
     min-height: 75%;
 }
+.column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.space-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .catalogo{    
     position: relative;
     display: grid;
@@ -18,7 +29,8 @@
     grid-template-columns: repeat(4, 1fr);
 }
 .start{
-    justify-content: start;
+    justify-content: flex-start;
+    display: flex;
 }
 
 @media screen and (max-width: 916px) {

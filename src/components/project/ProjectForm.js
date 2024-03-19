@@ -22,8 +22,7 @@ function ProjectForm({handleSubmit ,btnText, projectData}){
     })
         .then((res) => res.json())
         .then((data) => {
-            setCategories(data)
-            console.log(data)        
+            setCategories(data)                   
         })
         .catch((err) => console.log(err))
     }, [])

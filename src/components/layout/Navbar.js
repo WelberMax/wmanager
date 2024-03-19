@@ -15,7 +15,7 @@ function Navbar(){
 
     return (
         <nav className={styles.navbar}>
-            <Container>
+            <Container customClass="space-between">
                 <Link to='/'><img src={logo} alt="wManager" /></Link>
                 <ul className={styles.list}>
                     <li className={styles.item}>

@@ -19,11 +19,6 @@ import {useState} from 'react';
 import UserContext from './components/UserContext';
 import RequireAuth from './components/Auth/RequireAuth'
 
-
-
-
-
-
 //Styled component css
 /* const H1 = styled.h1
 `font-weight: bold;

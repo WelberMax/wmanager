@@ -1,8 +1,10 @@
 .navbar{
     display: flex;
     justify-content: space-between;
-    background-color: #222;
+    align-items: center;
+    background-color: #2e2e2e;
     padding: 1em;
+    
 }
 @media screen and (max-width: 992px) {    
     .navbar img{
