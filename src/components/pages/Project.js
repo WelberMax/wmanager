@@ -23,6 +23,16 @@ const Project = () => {
   const [showServiceForm, setShowServiceForm] = useState(false)
   const [message, setMessage] = useState('')
   const [type, setType] = useState()
+  const [showloading, setShowLoading] = useState(false)
+  //ativando o re-render
+  const [handleRender, setHandleRender] = useState(false)
+  
+
+  useEffect(() => {
+    setMessage(false)
+    
+  }, [handleRender])
+  
 
   const {id} = useParams()
 
@@ -49,15 +59,17 @@ const Project = () => {
     setShowServiceForm(!showServiceForm)    
   }
   function newService(service){
+    setHandleRender(!handleRender)
+    
     //o projeto vem completo, e o serviço é incluido na lista de servicos
     let update = {...project}
-
+    
     if(service.cost > update.budget){
       setMessage('Orcamento ultrapassado, verifique o valor do servico')
       setType('error')
       return false
-      
     }
+    setShowLoading(true)
     //adicionando o servico ao projeto
     update.services = [...update.services, service]
     //atualizando o projeto
@@ -78,44 +90,57 @@ const Project = () => {
         setType('success')
         setShowServiceForm(false)
         setProject(data.response)
+        setShowLoading(false)
+        
               
       })
       .catch((err) => console.log(err))
     }, 1000)
     
   }
+ 
   function removeService(id){
+    setShowLoading(true)
+    setHandleRender(!handleRender)      
+        
     let update = {...project}
-    update.services = update.services.filter((service) => service._id !== id)
-    setProject(update)
+    update.services = update.services.filter((service) => service._id !== id)   
     
-    fetch(`${apiURL}api/projects/${project._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(update)
-    }).then((res) => res.json())
-    .then((data) => {
-      
-      setProject(data.response)
-    })
-    .catch((err) => console.log(err))
+    setTimeout(() => {
+      fetch(`${apiURL}api/projects/${project._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(update)
+      }).then((res) => res.json())
+      .then((data) => {      
+        setMessage('Serviço removido com sucesso!')
+        setType('success')
+        setShowServiceForm(false)
+        setProject(data.response)
+        setShowLoading(false)              
+      })
+      .catch((err) => console.log(err))
+    }, 3000)
   }
+  
   async function updateProject(project){
+    setHandleRender(!handleRender)    
+    
     if(project.name === '' || project.budget === '') {
       setMessage('Preencha todos os campos')
-      setType('error')
+      setType('error')     
       return false
     }
     if(project.budget < project.cost){
       setMessage('O orcamento não pode ser menor que o custo do projeto')
-      setType('error')
+      setType('error')      
       return false
     }
+    setShowLoading(true)  
 
-    await fetch(`${apiURL}api/projects/${project._id}`, {
-      
+    await fetch(`${apiURL}api/projects/${project._id}`, {      
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
@@ -126,24 +151,30 @@ const Project = () => {
       setMessage('Projeto atualizado com sucesso!')
       setType('success')
       setShowProjectForm(false)
-      setProject(data.response)      
+      setProject(data.response) 
+      setShowLoading(false)          
     })
     .catch((err) => console.log(err))
   }
   function resetCost(){
+    setHandleRender(!handleRender)
     let update = {...project}
     update.cost = 0
-    fetch(`${apiURL}api/projects/${project._id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(update)
-    }).then((res) => res.json())
-    .then((data) => {
-      setProject(data.response)
+    setTimeout(() => {
+      fetch(`${apiURL}api/projects/${project._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(update)
+      }).then((res) => res.json())
+      .then((data) => {
+        setProject(data.response)
+        setMessage('Orcamento resetado com sucesso!')
+        setType('success')  
+      }, 3000)
     })
-    .catch((err) => console.log(err))
+    
   } 
   return (
     <>
@@ -151,7 +182,9 @@ const Project = () => {
       {project.name ? (        
       <div className={styles.project_details}>        
         <Container customClass='column'>
-        {message && <Message text={message} type={type}/>}                
+          {showloading && <Loading />}
+          {message && <Message text={message} type={type}/>}
+          {/* {!showloading && <Message text={message} type={type}/>} */}             
 
           <div className={styles.details_container}>
             <h1>Projeto: {project.name}</h1>

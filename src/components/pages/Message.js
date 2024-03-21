@@ -3,7 +3,7 @@ import { useEffect, useState } from'react'
 import styles from './Message.module.css'
 
 function Message({type, text}){
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(true)
 
    useEffect(() => {
     if(!text){
@@ -23,7 +23,9 @@ function Message({type, text}){
     return (
         <>
         {visible && (
-            <div className={`${styles.message} ${styles[type]}`}> {text}</div>
+            <div className={`${styles.message} ${styles[type]}`}>
+                 {text}
+            </div>
         )}
         
         </>

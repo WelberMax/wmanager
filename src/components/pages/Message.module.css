@@ -1,4 +1,8 @@
 .message{
+    display: block;
+    position: fixed;
+    top: 45%;
+    left: 0%;
     width: 100%;
     padding: 1em;
     border: 1px solid #000;
@@ -8,12 +12,12 @@
     border-radius: 5px;
 }
 .success{
-    color: #0b8b38;
-    background-color: rgb(222, 222, 222);
+    color: #089a3b;
+    background-color: rgba(222, 222, 222, 0.9);
     border-color: aliceblue;
 }
 .error{
     color: #b63232;
-    background-color: rgb(222, 222, 222);
+    background-color: rgba(222, 222, 222, 0.9);
     border-color: aliceblue;
 }
