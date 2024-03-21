@@ -2,9 +2,9 @@ import React from 'react'
 
 import { useParams} from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import Loading from '../layout/Loading'
+import Message from './Message'
 
 
 import styles from './Project.module.css'
@@ -21,12 +21,11 @@ const Project = () => {
   const [project, setProject] = useState([])
   const [showProjectForm, setShowProjectForm] = useState(false)
   const [showServiceForm, setShowServiceForm] = useState(false)
-  const history = useNavigate()
-  
-  
-  
+  const [message, setMessage] = useState('')
+  const [type, setType] = useState()
 
   const {id} = useParams()
+
   useEffect(() => {
     setTimeout(() => {
       fetch(`${apiURL}api/projects/${id}`, {
@@ -39,20 +38,32 @@ const Project = () => {
         setProject(data)
       })
       .catch((err) => console.log(err))
-    }, 1000)
+    }, 500)
   } , [id])
 
   function toggleProjectForm(){
     setShowProjectForm(!showProjectForm)    
   }
+
   function toggleServiceForm(){
     setShowServiceForm(!showServiceForm)    
   }
   function newService(service){
+    //o projeto vem completo, e o serviço é incluido na lista de servicos
     let update = {...project}
+
+    if(service.cost > update.budget){
+      setMessage('Orcamento ultrapassado, verifique o valor do servico')
+      setType('error')
+      return false
+      
+    }
+    //adicionando o servico ao projeto
     update.services = [...update.services, service]
-    setProject(update)
-    console.log(update)
+    //atualizando o projeto
+    update.cost = Number(update.cost) + Number(service.cost)
+    
+        
 
     setTimeout(() => {
       fetch(`${apiURL}api/projects/${project._id}`, {
@@ -62,17 +73,46 @@ const Project = () => {
         },
         body: JSON.stringify(update)
       }).then((res) => res.json())
-      .then((data) => {
-        
+      .then((data) => {      
+        setMessage('Serviço criado com sucesso!')
+        setType('success')
+        setShowServiceForm(false)
+        setProject(data.response)
+              
       })
       .catch((err) => console.log(err))
-    }, 3000)
-  
-    /* history(`/projects`, {state:{message: 'Serviço criado com sucesso!'}}) */
+    }, 1000)
     
   }
-  
+  function removeService(id){
+    let update = {...project}
+    update.services = update.services.filter((service) => service._id !== id)
+    setProject(update)
+    
+    fetch(`${apiURL}api/projects/${project._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(update)
+    }).then((res) => res.json())
+    .then((data) => {
+      
+      setProject(data.response)
+    })
+    .catch((err) => console.log(err))
+  }
   async function updateProject(project){
+    if(project.name === '' || project.budget === '') {
+      setMessage('Preencha todos os campos')
+      setType('error')
+      return false
+    }
+    if(project.budget < project.cost){
+      setMessage('O orcamento não pode ser menor que o custo do projeto')
+      setType('error')
+      return false
+    }
 
     await fetch(`${apiURL}api/projects/${project._id}`, {
       
@@ -82,22 +122,36 @@ const Project = () => {
       },
       body: JSON.stringify(project)
     }).then((res) => res.json())
-    .then((data) => {
-      setProject(data)
-      history('/projects', {state:{message: 'Projeto atualizado com sucesso!'}})
-      
+    .then((data) => {        
+      setMessage('Projeto atualizado com sucesso!')
+      setType('success')
+      setShowProjectForm(false)
+      setProject(data.response)      
     })
     .catch((err) => console.log(err))
   }
- 
-  
+  function resetCost(){
+    let update = {...project}
+    update.cost = 0
+    fetch(`${apiURL}api/projects/${project._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(update)
+    }).then((res) => res.json())
+    .then((data) => {
+      setProject(data.response)
+    })
+    .catch((err) => console.log(err))
+  } 
   return (
     <>
-      {project.name ? (
-      <div className={styles.project_details}>
-        
+    
+      {project.name ? (        
+      <div className={styles.project_details}>        
         <Container customClass='column'>
-               
+        {message && <Message text={message} type={type}/>}                
 
           <div className={styles.details_container}>
             <h1>Projeto: {project.name}</h1>
@@ -109,12 +163,14 @@ const Project = () => {
             <div className={styles.project_info}>
               <p>Categoria: {project.category[0].name}</p>
               <p><span>Orçamento:</span> R${project.budget}</p>
-              <p><span>Total gasto:</span> R${project.cost}</p>              
+              <p><span>Total gasto:</span> R${project.cost}</p>
+              <button onClick={resetCost} className={styles.btn}>Resetar gastos </button>              
             </div>)
             : (
               // Adicionar funcao para atualizar o projeto
             <div className={styles.project_info}>
-              <ProjectForm projectData={project} btnText='Concluir edição' handleSubmit={updateProject}/>            
+              <ProjectForm projectData={project} btnText='Concluir edição' handleSubmit={updateProject}/>
+                                     
             </div>)}
             <div className={styles.service_form_container}>
               <h4>Adicionar serviços</h4>
@@ -134,6 +190,7 @@ const Project = () => {
                 <Container customClass='start'>
                   {project.services.length > 0 && project.services.map((service) => (
                     <ServiceCard
+                      handleRemove={removeService}
                       id={service._id}
                       name={service.name}
                       cost={service.cost}
@@ -141,10 +198,8 @@ const Project = () => {
                       key={service._id}
                     />
                   ))}
-                </Container>
-                
-              </div>
-              
+                </Container>                
+              </div>              
             </div>
           </div>
 

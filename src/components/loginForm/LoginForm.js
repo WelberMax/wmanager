@@ -8,7 +8,7 @@ import { useContext } from "react";
 import UserContext from "../UserContext";
 
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const apiURL = process.env.REACT_APP_API_URL;
 
 const LoginForm = ({ btntext }) => {
@@ -17,6 +17,8 @@ const LoginForm = ({ btntext }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState();
 
   const history = useNavigate();
 
@@ -41,7 +43,9 @@ const LoginForm = ({ btntext }) => {
         login({ email, password });
       }
       if (!response.ok) {
-        history("/login", { state: { message: "Email ou senha inválidos" } });
+        setMessage("Ocorreu um erro ao tentar fazer login");
+        setType("error");
+        return false;
       }
     } catch (error) {
       
@@ -53,15 +57,10 @@ const LoginForm = ({ btntext }) => {
     e.preventDefault();
     handleLogin();
   };
-  let message = "";
-  const location = useLocation();
-  if (location.state) {
-    message = location.state.message;
-  }
 
   return (
     <div>
-      {message && <Message type="error" text={message} />}
+      {message && <Message type={type} text={message} />}
       <form onSubmit={submit} className={styles.login_container}>
         <Input
           type="text"

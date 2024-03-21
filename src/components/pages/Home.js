@@ -15,7 +15,7 @@ function Home() {
 
   return (
     <section className={styles.home_container}>
-      {message && <Message type="sucess" text={message} />}
+      {message && <Message type="success" text={message} />}
       <h1>
         Bem vindo ao <span>wManager</span>
       </h1>

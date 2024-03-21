@@ -2,7 +2,8 @@
     background-color: #222;
     text-align: center;
     color:#fff;
-    padding: 2% 2%;
+    max-height: 45px;
+    padding: 0.7em;
     text-decoration: none;
     transition: 0.8s;
 }
