@@ -58,13 +58,20 @@ const Project = () => {
   function toggleServiceForm(){
     setShowServiceForm(!showServiceForm)    
   }
+  //<< -- Adicionando Serviços -- >>
   function newService(service){
-    setHandleRender(!handleRender)
+    
     
     //o projeto vem completo, e o serviço é incluido na lista de servicos
     let update = {...project}
     
     if(service.cost > update.budget){
+      setMessage('Orcamento ultrapassado, verifique o valor do servico')
+      setType('error')
+      return false
+    }
+    if ( update.cost + Number(service.cost) > update.budget){
+      console.log(update.cost, service.cost, update.budget)
       setMessage('Orcamento ultrapassado, verifique o valor do servico')
       setType('error')
       return false
@@ -98,7 +105,7 @@ const Project = () => {
     }, 1000)
     
   }
- 
+  //<< -- Removendo Serviços -- >> 
   function removeService(id){
     setShowLoading(true)
     setHandleRender(!handleRender)      

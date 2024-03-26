@@ -2,16 +2,30 @@ import { Link } from 'react-router-dom'
 import Container from "./Container";
 import logo from "../img/spreadsheet-app.png"
 import styles from "./Navbar.module.css"
+import { useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import UserContext from "../UserContext";
 
-import { useContext } from 'react';
-import UserContext from '../UserContext';
+
 
 
 
 
 function Navbar(){
-    const {user, logout} = useContext(UserContext);
+    const { logout } = useContext(UserContext);
+    const navigate = useNavigate();
+    const loggedIn = localStorage.getItem("isLogged");
+
+    const loggedout = () => {
+        logout(null);
+        localStorage.removeItem("isLogged");
+        navigate("/");        
+    }
     
+    
+
+
+   
 
     return (
         <nav className={styles.navbar}>
@@ -29,7 +43,8 @@ function Navbar(){
                     </li>
 
                     
-                    {user ? (
+                    
+                    {loggedIn ? (
                         // Se o usuaário estiver logado
                         <>
                             <li className={styles.item}>
@@ -39,7 +54,7 @@ function Navbar(){
                                 <Link to="/projects">Projetos</Link>
                             </li>
                             <li className={styles.item}>                                
-                                <Link onClick={logout} to="/">Logout</Link>
+                                <Link onClick={loggedout} to="/">Logout</Link>
                             </li>
                         </>) : (
                         // Se o usuaário estiver deslogado

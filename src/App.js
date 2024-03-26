@@ -19,24 +19,32 @@ import {useState} from 'react';
 import UserContext from './components/UserContext';
 import RequireAuth from './components/Auth/RequireAuth'
 
+
+
 //Styled component css
 /* const H1 = styled.h1
 `font-weight: bold;
 font-size: 4rem;` */
 
-function App() {
+
+function App() {  
   
   const [user, setUser] = useState(null);
+
+  
+
+  
+  
   
 
   const login = (userData) => {
     setUser(userData);
+    window.localStorage.setItem("isLogged", true);
   };
 
-  const logout = () => {
-    
+  const logout = () => {    
     setUser(null);
-    
+    window.localStorage.removeItem("isLogged");    
   };
   
   return (
